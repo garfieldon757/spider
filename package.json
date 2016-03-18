@@ -1,0 +1,18 @@
+{
+  "name": "spider",
+  "version": "1.0.0",
+  "description": "this is a test spider.",
+  "main": "npm install npm",
+  "dependencies": {
+    "cheerio": "^0.20.0",
+    "express": "^4.13.4",
+    "superagent": "^1.8.1",
+    "utility": "^1.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
