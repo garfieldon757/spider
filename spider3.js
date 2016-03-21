@@ -1,7 +1,7 @@
 'use strict';
 // 引入依赖
 var fs = require('fs');
-  var request = require("request");
+  //var request = require("request");
 var express = require('express');
 var cheerio = require('cheerio');
 var charset = require('superagent-charset');
@@ -31,19 +31,19 @@ app.get('/', function (req, res, next) {
         items.push({
           img_link: $element.attr('src')
         });
-        download($element.attr('src'), dir, Math.floor(Math.random()*100000) + $element.attr('src').substr(-4,4));
-        /*res.download('/img', $element.attr('src'), function(err){
+        //download($element.attr('src'), dir, Math.floor(Math.random()*100000) + $element.attr('src').substr(-4,4));
+        var dest_filename = getFileName($element.attr('src'));
+        res.download( '/'+dest_filename, '/img/'+ Math.random()*1000+'.jpg' , function(err){
           if (err) {
               console.log("error");
           } else {
             console.log("correct");
           }
-        });*/
+        });
         console.log("Downloading file:" + $element.attr('src') + "...Done.");
       });
       console.log("****************success***********************");
-      res.setHeader('Content-Type','image/png');
-      res.download('https://img1.doubanio.com/view/photo/thumb/public/p2169637052.jpg');
+      
       res.send(items);
 
     });
@@ -55,6 +55,11 @@ app.get('/', function (req, res, next) {
       request(url).pipe(fs.createWriteStream(dir + "/" + filename));
     });
   };
+
+  var getFileName = function(fullUrl){
+    var filename = fullUrl.match("[^/]+$");
+    return filename;
+  }
 
 app.listen(3000, function (req, res) {
   console.log('spider is running at port 3000');
